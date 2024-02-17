@@ -16,11 +16,17 @@ type Config struct {
 
 type HTTPServer struct {
 	Address     string        `yaml:"address" env-default:"localhost:8080"`
-	TimeOut     time.Duration `yaml:"timeout" env-default:"4s"`
+	Timeout     time.Duration `yaml:"timeout" env-default:"4s"`
 	IdleTimeout time.Duration `yaml:"idle_timeout" env-default:"60s"`
 }
 
 func MustLoad() *Config {
+	path := "D:/git/url-shortner/config/local.yaml"
+	err := os.Setenv("CONFIG_PATH", path)
+	if err != nil {
+		log.Fatalf("failed to set CONFIG_PATH: %s", err)
+	}
+
 	configPath := os.Getenv("CONFIG_PATH")
 	if configPath == "" {
 		log.Fatal("CONFIG_PATH is not set")
