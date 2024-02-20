@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"os"
 	"url-shortner/internal/config"
+
 )
 
 const (
@@ -26,16 +27,17 @@ func main() {
 	// configPath := os.Getenv("CONFIG_PATH")
 	// fmt.Println("CONFIG_PATH:", configPath)
 
-	// log := setupLogger(cfg.Env)
+	log := setupLogger(cfg.Env)
 
-	// log.Info("starting url-shortner",
-	// 	slog.String("env", cfg.Env),
-	// 	slog.String("storage_path", cfg.StoragePath),
-	// 	slog.String("address", cfg.HTTPServer.Address),
-	// 	slog.String("timeout", cfg.HTTPServer.Timeout.String()),
-	// 	slog.String("idleTimeout", cfg.HTTPServer.IdleTimeout.String()),
-	// )
-	// log.Debug("debug message and enabled")
+	log.Info("starting url-shortner",
+		slog.String("env", cfg.Env),
+		slog.String("storage_path", cfg.StoragePath),
+		slog.String("address", cfg.HTTPServer.Address),
+		slog.String("timeout", cfg.HTTPServer.Timeout.String()),
+		slog.String("idleTimeout", cfg.HTTPServer.IdleTimeout.String()),
+	)
+	log.Debug("debug message and enabled")
+
 }
 
 func setupLogger(env string) *slog.Logger {
