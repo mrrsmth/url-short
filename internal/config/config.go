@@ -9,9 +9,9 @@ import (
 )
 
 type Config struct {
-	Env         string `yaml:"env" env-default:"local"`
-	StoragePath string `yaml:"storage_path" env-required:"true"`
-	HTTPServer  `yaml:"http_server"`
+	Env         string     `yaml:"env" env-default:"local"`
+	StoragePath string     `yaml:"storage_path" env-required:"true"`
+	HTTPServer  HTTPServer `yaml:"http_server"`
 }
 
 type HTTPServer struct {
@@ -21,12 +21,6 @@ type HTTPServer struct {
 }
 
 func MustLoad() *Config {
-	path := "D:/git/url-shortner/config/local.yaml"
-	err := os.Setenv("CONFIG_PATH", path)
-	if err != nil {
-		log.Fatalf("failed to set CONFIG_PATH: %s", err)
-	}
-
 	configPath := os.Getenv("CONFIG_PATH")
 	if configPath == "" {
 		log.Fatal("CONFIG_PATH is not set")
